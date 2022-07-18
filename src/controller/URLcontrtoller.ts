@@ -1,10 +1,11 @@
 import { Request, Response } from "express";
 import shortid from "shortid";
-import {config} from '../config/constants' 
+import {config} from '../config/Constants' 
 
 export class URLcontroller{
-//hash para url
+
     public async shorten(req: Request, res: Response): Promise<void>{
+        //hash para url
         const {originURL} = req.body
         const hash = shortid.generate()
         const shortURL = `${config.API_URL}/${hash}`
@@ -14,13 +15,16 @@ export class URLcontroller{
     }
 
     public async redirect(req:Request, res: Response): Promise<void>{
-    //Pegando hash
-    const{hash}=req.params  
-    //Encontrar URL original
-    const url={
-        originURL: "",
-        hash:"",
-        shortURL:"",
-    }
-    }
+        //Pegando hash
+        const{hash}=req.params
+          
+        //Encontrar URL original
+        const url={
+            originURL: "",
+            hash:"",
+            shortURL:"",
+        }
+        //Redirecionando para a URL original
+        res.redirect(url.originURL)
+    }   
 }
